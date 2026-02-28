@@ -163,3 +163,13 @@ Data is mounted from `./data`; the entrypoint waits for Neo4j and optionally run
 | `python -m src.kg_export_embeddings` | Export Question embeddings to `data/kg_question_embeddings.npy` and qid order CSV. |
 
 Training and evaluation are triggered from the Streamlit app (Developer → Train model / Evaluate) and use `src/app_data`, `src/train_kg_policy`, and `src/evaluate`.
+
+
+## Time log:
+
+EDA -> 60 min
+Problem understanding and approach definition -> 60 min
+Implementation with iteration -> 240 min
+Streamlit + dockerization -> 60 min
+Testing -> 60+ min
+
