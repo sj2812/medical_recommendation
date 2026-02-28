@@ -1,0 +1,33 @@
+services:
+  neo4j:
+    image: neo4j:5.15.0
+    environment:
+      NEO4J_AUTH: neo4j/password
+    ports:
+      - "17474:7474"   # Browser: http://localhost:17474
+      - "17687:7687"   # Bolt: localhost:17687
+    volumes:
+      - neo4j_data:/data
+    # If Neo4j exits with "already running" or auth errors, reset the DB:
+    #   docker compose down -v && docker compose up -d
+
+  app:
+    build: .
+    ports:
+      - "8501:8501"   # Streamlit: http://localhost:8501
+    environment:
+      NEO4J_URI: bolt://neo4j:7687
+      NEO4J_USER: neo4j
+      NEO4J_PASSWORD: password
+      NEO4J_DATABASE: qbankuser
+    depends_on:
+      - neo4j
+    # Mount data so you can use local CSVs and persist outputs (e.g. embeddings)
+    volumes:
+      - ./data:/app/data
+    # Optional: mount models to persist trained model
+    # volumes:
+    #   - ./models:/app/models
+
+volumes:
+  neo4j_data:
